@@ -35,6 +35,7 @@ BottomNavigationBar.Item = styled.button`
     border: 0;
     background-color: transparent;
 
+    cursor: pointer;
     outline: none;
 
     ${props => props.active && css`
