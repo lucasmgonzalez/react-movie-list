@@ -49,24 +49,22 @@ BottomNavigationBar.Item = styled.button`
     `}
 ` 
 
-const BottomNavigation = ({initialSelected, children, onChange}) => {
-    const [selected, setSelected] = React.useState(initialSelected || children[0].props.value)
+const BottomNavigation = ({value, children, onChange}) => {
     const theme = useTheme()
 
-    const handleClick = (value) => () => {
-        setSelected(value)
-        onChange(value)
+    const handleClick = (newValue) => () => {
+        onChange(newValue)
     }
 
     const modifiedChildren = React.useMemo(() => {
         return children.map(child => React.cloneElement(child, {
             onClick: handleClick(child.props.value),
-            active: child.props.value === selected,
+            active: child.props.value === value,
             icon: React.cloneElement(child.props.icon, {
-                fill: child.props.value === selected ? theme.colors.primary : child.props.icon.props.fill
+                fill: child.props.value === value ? theme.colors.primary : child.props.icon.props.fill
             })
         }))
-    }, [children, selected])
+    }, [children, value])
 
     return (
         <BottomNavigationBar>

@@ -13,6 +13,8 @@ import SearchIcon from 'components/Icons/SearchIcon'
 import MovieIcon from 'components/Icons/MovieIcon'
 import FullPageLoading from 'components/FullPageLoading'
 import BottomNavigation from 'components/BottomNavigation'
+import { useRouter } from 'next/router'
+import dynamic from 'next/dynamic'
 
 const UpcomingMovies = () => {
   const [movies] = useUpcomingMovies();
@@ -70,21 +72,33 @@ const pageOptions = {
   }
 }
 
+const getLocationHash = (defaultValue) => {
+  if (typeof window === 'undefined') {
+    return defaultValue;
+  }
+
+  return window.location.hash ? window.location.hash.slice(1) : defaultValue;
+}
+
 const Home = () => {
-  const [selectedPage, setSelectedPage] = React.useState(Object.keys(pageOptions)[0])
+  const router = useRouter()
+  const [selectedPageKey, setSelectedPageKey] = React.useState(getLocationHash(Object.keys(pageOptions)[0]))
+
+  const selectedPage = pageOptions[selectedPageKey] || Object.values(pageOptions)[0]
 
   const handleChange = (value) => {
-    setSelectedPage(value)
+    setSelectedPageKey(value)
+    router.replace(router.pathname + "#" + value)
   }
 
   return (
     <>
       <Head>
-        <title>{pageOptions[selectedPage].title}</title>
+        <title>Movie List</title>
       </Head>
       
       <AppBar fixed>
-        <AppBar.Title>{pageOptions[selectedPage].title}</AppBar.Title>
+        <AppBar.Title>{selectedPage.title}</AppBar.Title>
         
         <Link href={`/search`}>
           <IconButton>
@@ -94,13 +108,14 @@ const Home = () => {
       </AppBar>
       
       <AppBody>
-          {pageOptions[selectedPage].render}
+          {selectedPage.render}
       </AppBody>
 
-      <BottomNavigation initialSelected={selectedPage} onChange={handleChange}>
+      <BottomNavigation value={selectedPageKey} onChange={handleChange}>
         {Object.keys(pageOptions).map(pageKey => (
-          <BottomNavigation.Item 
-            value={pageKey} 
+          <BottomNavigation.Item
+            key={pageKey}
+            value={pageKey}
             label={pageOptions[pageKey].label} 
             icon={<MovieIcon fill="#666"/>}
           />  
@@ -110,6 +125,8 @@ const Home = () => {
   )
 }
 
-export default Home;
+// Need to disable SSR for BottomNavigation with hash to work as expected
+// This happens because the hash is not sent to the server side, so it can't calculate the exact tab that is active
+export default dynamic(() => Promise.resolve(Home), {ssr: false});
 
 
