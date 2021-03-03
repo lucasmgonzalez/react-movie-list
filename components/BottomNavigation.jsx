@@ -22,6 +22,8 @@ BottomNavigationBar.Label = styled.span`
     display: block;
 
     font-family: Roboto, Arial, Helvetica, sans-serif;
+
+    transition: font-size ease-in-out 0.15s;
 `
 
 BottomNavigationBar.Item = styled.button`
@@ -35,6 +37,8 @@ BottomNavigationBar.Item = styled.button`
     border: 0;
     background-color: transparent;
 
+    font-size: 0.75rem;
+
     cursor: pointer;
     outline: none;
 
@@ -44,7 +48,8 @@ BottomNavigationBar.Item = styled.button`
         }
 
         & ${BottomNavigationBar.Label} {
-            color: ${theme('colors.primary')}
+            color: ${theme('colors.primary')};
+            font-size: .875rem;
         }
     `}
 ` 
