@@ -1,10 +1,24 @@
+import React from 'react'
+import ReactDOM from 'react-dom'
 import styled, { css } from 'styled-components'
 import theme from 'utils/theme'
 import breakpoint from 'utils/breakpoint'
 import IconButton from 'components/IconButton'
 import AppBody from 'components/AppBody'
 
-const AppBar = styled.header`
+const APP_BAR_ID = 'app-bar-container'
+
+const AppBar = ({children}) => {
+  if (typeof document === 'undefined') {
+    return null;
+  }
+
+  const element = document.querySelector(`#${APP_BAR_ID}`);
+
+  return ReactDOM.createPortal(children, element)
+}
+
+AppBar.Container = styled.header.attrs({id: APP_BAR_ID})`
   ${({ fixed }) => fixed && css`
     position: fixed;
     top: 0;
@@ -104,5 +118,6 @@ AppBar.InputGroup = styled.div`
     right: 2px;
   }
 `
+
 
 export default AppBar

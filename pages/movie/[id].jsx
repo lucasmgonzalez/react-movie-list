@@ -51,20 +51,18 @@ const MoviePage = () => {
         <AppBar.Title>{movie ? movie.title : ''}</AppBar.Title>
       </AppBar>
       
-      <AppBody>
-        {movie ? (
-          <Container>
-            <MoviePoster src={'https://image.tmdb.org/t/p/w500' + movie.poster_path} />
-              
-            <MovieDetails>
-              <MovieTitle>{movie.title}</MovieTitle>
-              <MovieOverview>{movie.overview}</MovieOverview>
-            </MovieDetails>
-          </Container>
-        ) : (
-          <FullPageLoading />
-        )}
-      </AppBody>
+      {movie ? (
+        <Container>
+          <MoviePoster src={'https://image.tmdb.org/t/p/w500' + movie.poster_path} />
+            
+          <MovieDetails>
+            <MovieTitle>{movie.title}</MovieTitle>
+            <MovieOverview>{movie.overview}</MovieOverview>
+          </MovieDetails>
+        </Container>
+      ) : (
+        <FullPageLoading />
+      )}
     </>
   )
 }

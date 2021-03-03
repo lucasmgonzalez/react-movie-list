@@ -1,5 +1,7 @@
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 import Head from 'next/head'
+import AppBar from 'components/AppBar'
+import AppBody from 'components/AppBody'
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -37,7 +39,12 @@ export default function App({ Component, pageProps }) {
       </Head>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
+        <>
+          <AppBar.Container fixed/>
+          <AppBody>
+            <Component {...pageProps} />
+          </AppBody>
+        </>
       </ThemeProvider>
     </>
   )

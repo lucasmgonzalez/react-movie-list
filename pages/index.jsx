@@ -15,6 +15,7 @@ import FullPageLoading from 'components/FullPageLoading'
 import BottomNavigation from 'components/BottomNavigation'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
+import getLocationHash from 'utils/getLocationHash'
 
 const UpcomingMovies = () => {
   const [movies] = useUpcomingMovies();
@@ -72,14 +73,6 @@ const pageOptions = {
   }
 }
 
-const getLocationHash = (defaultValue) => {
-  if (typeof window === 'undefined') {
-    return defaultValue;
-  }
-
-  return window.location.hash ? window.location.hash.slice(1) : defaultValue;
-}
-
 const Home = () => {
   const router = useRouter()
   const [selectedPageKey, setSelectedPageKey] = React.useState(getLocationHash(Object.keys(pageOptions)[0]))
@@ -107,9 +100,7 @@ const Home = () => {
         </Link>
       </AppBar>
       
-      <AppBody>
-          {selectedPage.render}
-      </AppBody>
+      {selectedPage.render}
 
       <BottomNavigation value={selectedPageKey} onChange={handleChange}>
         {Object.keys(pageOptions).map(pageKey => (

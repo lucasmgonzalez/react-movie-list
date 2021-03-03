@@ -56,7 +56,7 @@ const SearchResults = ({search}) => {
 const SearchPage = () => {
   const router = useRouter()
   // I need to get the query param from window.location to workaround a hydration
-  const [search, setSearch] = React.useState(getQueryParam('search'));
+  const [search, setSearch] = React.useState(getQueryParam('search') || '');
 
   const handleInputChange = ({currentTarget}) => {
     setSearch(currentTarget.value)
@@ -92,10 +92,8 @@ const SearchPage = () => {
           )}
         </AppBar.InputGroup>
       </AppBar>
-      
-      <AppBody appBarFixed>
-        <SearchResults search={router.query.search}/>
-      </AppBody>
+
+      <SearchResults search={router.query.search}/>
     </>
   )
 }
