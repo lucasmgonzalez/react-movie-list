@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
+import Image from './Image'
 
 const MovieCard = styled.div`
   position: relative;
   display: flex;
-  aspect-ratio: 6 / 9;
 
   a&{
     cursor: pointer;
@@ -33,7 +33,7 @@ MovieCard.Title = styled.h4`
   color: white;
 `
 
-MovieCard.Poster = styled.img`
+MovieCard.Poster = styled(Image)`
   position: absolute;
   top: 0;
   left: 0;
@@ -47,7 +47,7 @@ MovieCard.Poster = styled.img`
 export default React.forwardRef(({ movie, ...props }, ref) => {
   return (
     <MovieCard ref={ref} {...props}>
-      <MovieCard.Poster src={'https://image.tmdb.org/t/p/w500' + movie.poster_path} />
+      <MovieCard.Poster aspectRatio={6/9} src={'https://image.tmdb.org/t/p/w500' + movie.poster_path} />
     </MovieCard>
   )
 })

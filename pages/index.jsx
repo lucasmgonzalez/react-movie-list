@@ -90,7 +90,7 @@ const Home = () => {
         <title>Movie List</title>
       </Head>
       
-      <AppBar fixed>
+      <AppBar>
         <AppBar.Title>{selectedPage.title}</AppBar.Title>
         
         <Link href={`/search`}>

@@ -6,6 +6,7 @@ const MovieCardList = styled.ul`
   list-style: none;
   flex-wrap: wrap;
   padding: 0;
+  margin: 0;
 `
 
 MovieCardList.Item = styled.li`

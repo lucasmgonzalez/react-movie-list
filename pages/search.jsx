@@ -79,7 +79,7 @@ const SearchPage = () => {
     <>
       <Head></Head>
       
-      <AppBar fixed>
+      <AppBar>
         <BackButton />
         
         <AppBar.InputGroup>
